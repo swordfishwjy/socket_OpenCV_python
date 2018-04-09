@@ -15,6 +15,7 @@ def recv_size(sock, count):
         count -= len(newbuf)
     return buf
 
+
 # 接收图片
 def recv_all(sock, count):
     buf = ''
@@ -23,7 +24,7 @@ def recv_all(sock, count):
         # 可以每次只接收一个字节，原因是增强python与C++的兼容性
         # python可以发送任意的字符串，包括乱码，但C++发送的字符中不能包含'\0'，也就是字符串结束标志位
         newbuf = sock.recv(4096)
-        if not newbuf: 
+        if not newbuf:
             return None
         buf += newbuf
         count -= len(newbuf)
@@ -35,7 +36,7 @@ def recv_all(sock, count):
         buf += newbuf
     return buf
 
-    
+
 
 # prepare a face detector
 face_cascade = cv2.CascadeClassifier('lbpcascade_frontalface.xml')
@@ -44,7 +45,7 @@ face_cascade = cv2.CascadeClassifier('lbpcascade_frontalface.xml')
 # socket.SOCK_STREAM代表基于TCP的流式socket通信
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 # 设置地址与端口，如果是接收任意ip对本服务器的连接，地址栏可空，但端口必须设置
-address = ('', 8010)
+address = ('', 8000)
 s.bind(address) # 将Socket（套接字）绑定到地址
 s.listen(True) # 开始监听TCP传入连接
 print ('Waiting for images...')
@@ -62,16 +63,16 @@ while 1:
         image_gray = cv2.cvtColor(decimg, cv2.COLOR_BGR2GRAY)
         faces = face_cascade.detectMultiScale(image_gray, 1.3, 5)
         faces_string = pickle.dumps(faces) #transfer tuple to string
-        conn.send(faces_string)
+        conn.send(faces_string) #发送处理结果给client，client收到结果后会开始下一张照片的拍摄
 
 
         # cv2.imshow('SERVER',decimg)
         # if cv2.waitKey(10) == 27:
-        #     break 
+        #     break
         # print('Image recieved successfully!')
         # conn.send("Server has recieved messages!")
     if cv2.waitKey(10) == 27:
-        break 
+        break
 
 s.close()
 cv2.destroyAllWindows()
