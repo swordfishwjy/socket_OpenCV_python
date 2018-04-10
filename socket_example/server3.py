@@ -52,9 +52,10 @@ s.bind(address) # 将Socket（套接字）绑定到地址
 s.listen(True) # 开始监听TCP传入连接
 print ('Waiting for images...')
 # 接受TCP链接并返回（conn, addr），其中conn是新的套接字对象，可以用来接收和发送数据，addr是链接客户端的地址。
-conn, addr = s.accept()
+# conn, addr = s.accept()
 
 while 1:
+    conn, addr = s.accept()
     length = recv_size(conn,16) #首先接收来自客户端发送的大小信息
 
     # time.sleep(1)
