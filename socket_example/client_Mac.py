@@ -15,7 +15,7 @@ sock.setblocking(1)
 # host = socket.gethostname()
 host = '134.124.243.52'
 # 连接服务端
-address_server = (host, 8010)
+address_server = (socket.gethostname() , 8010)
 sock.connect(address_server)
 
 # 从摄像头采集图像

@@ -18,7 +18,7 @@ focalLength = (faceDistance * pixelWidth) / faceWidth
 
 cap = cv2.VideoCapture(0)
 
-face_cascade = cv2.CascadeClassifier('lbpcascade_frontalface.xml')
+face_cascade = cv2.CascadeClassifier('socket_example/lbpcascade_frontalface.xml')
 # face_cascade = cv2.CascadeClassifier('hogcascade_pedestrians.xml')
 # eye_cascade = cv2.CascadeClassifier('haarcascade_eye.xml')
 
